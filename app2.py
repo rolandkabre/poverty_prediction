@@ -1,10 +1,9 @@
 import streamlit as st
 import pandas as pd
-import pickle
+import joblib
 
 # Charger le modèle
-with open('meilleur_modele.pkl', 'rb') as file:
-    modele = pickle.load(file)
+modele = joblib.load('model.joblib')
 
 st.markdown('<h1 style="color: blue;">Application de Prévision de la Pauvreté</h1>', unsafe_allow_html=True)
 
@@ -31,7 +30,7 @@ education_enc = education_mapping[selected_education]
 occupation = st.radio("Statut du chef de ménage :", ["Non-occupé", "Travailleur"])
 occupation_enc = 0 if occupation == "Non-occupé" else 1
 
-logement_options = ["logem_Proprietaire sans titre", "logem_Locataire", "logem_Autre"]
+logement_options = ["logem_Proprietaire titre","logem_Proprietaire sans titre", "logem_Locataire", "logem_Autre"]
 selected_logement = st.selectbox("Statut d'occupation du logement:", logement_options)
 
 elec = st.radio("Avez-vous accès à l'électricité :", ["Non", "Oui"])
